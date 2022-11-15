@@ -13,7 +13,7 @@ function App() {
   const [filterByRating, setFilterByRating] = useState("");
 
   useEffect(() => {
-    Adapter.getShows().then((shows) => setShows(shows));
+    Adapter.getShows().then((data) => setShows(data))
   }, []);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function App() {
   let displayShows = shows;
   if (filterByRating) {
     displayShows = displayShows.filter((s) => {
-      s.rating.average >= filterByRating;
+      return s.rating.average >= filterByRating;
     });
   }
 
@@ -49,14 +49,14 @@ function App() {
       <Nav
         handleFilter={handleFilter}
         handleSearch={handleSearch}
-        searchTerm={searchTerm}
+        search={searchTerm}
       />
       <Grid celled>
         <Grid.Column width={5}>
           {!!selectedShow ? (
             <SelectedShowContainer
               selectedShow={selectedShow}
-              allEpisodes={episodes}
+              episodes={episodes}
             />
           ) : (
             <div />
